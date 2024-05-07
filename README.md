@@ -1,7 +1,7 @@
 # learn_kinematics
 Forward and Inverse Kinematics of Baxter Robot
 
-**PLEASE ADD 0.01 TO Z COORDINATE BEFORE CALCULATING IK. SEE LINE 25 IN [ik_test.py](scripts/ik_test.py#L25) FOR MORE INFO**
+~~**PLEASE ADD 0.01 TO Z COORDINATE BEFORE CALCULATING IK. SEE LINE 25 IN [ik_test.py](scripts/ik_test.py#L25) FOR MORE INFO**~~
 
 ## Dependencies
 * ~~[moveit!](http://moveit.ros.org/)~~
@@ -10,7 +10,11 @@ Forward and Inverse Kinematics of Baxter Robot
 
 ## Install trac_ik
 1. Open terminal or press <kbd>CTRL</kbd>+<kbd>ALT</kbd>+<kbd>T</kbd>
-1. Run following command `sudo apt-get install ros-indigo-trac-ik`
+1. Run following command
+  ```console
+  sudo apt-get install ros-${ROS_DISTRO}-trac-ik
+  ```
+  For example, in the case of ROS Indigo, the following command is equivalent to the one above: `sudo apt-get install ros-indigo-trac-ik`
 
 ## Installation
 * ~~Install baxter_pykdl package by downloading the package from [git](https://github.com/RethinkRobotics/baxter_pykdl) into the workspace src folder and running `catkin_make`.~~
