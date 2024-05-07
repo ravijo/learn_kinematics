@@ -1,0 +1,6 @@
+float64[] pose
+float64[] joint_seed
+---
+float64[] joint_angles
+int16 success_left
+int16 success_right

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="data_file" default="/home/tom/ros_ws/src/learn_kinematics/data/ClothPlayJA" />
+    <!-- inout joint values csv file -->
+    <arg name="out_location" default="/home/tom/ros_ws/src/learn_kinematics/data/test/" />
+    <!-- output location for saving csv files for plotting porpose -->
+    <!--
+  *** Baxter KDL Chain ***
+  * torso
+  * left_arm_mount
+  * left_upper_shoulder
+  * left_lower_shoulder
+  * left_upper_elbow
+  * left_lower_elbow
+  * left_upper_forearm
+  * left_lower_forearm
+  * left_wrist
+  * left_hand
+  * left_gripper_base
+  * left_gripper
+-->
+    <arg name="chain_start" default="torso" />
+    <arg name="chain_end" default="left_gripper" />
+    <arg name="timeout" default="0.005" />
+    <!-- total number of joints in baxter arm -->
+    <arg name="num_joints" default="7" />
+    <!-- starting postion of left joint in csv file -->
+    <arg name="left_joint_offset" default="1" />
+    <!-- gausian noise in degree -->
+    <arg name="noise" default="0" />
+    <node name="kinematics" pkg="learn_kinematics" type="compare_ik" output="screen">
+        <param name="chain_start" value="$(arg chain_start)"/>
+        <param name="chain_end" value="$(arg chain_end)"/>
+        <param name="timeout" value="$(arg timeout)"/>
+        <param name="num_joints" value="$(arg num_joints)"/>
+        <param name="left_joint_offset" value="$(arg left_joint_offset)"/>
+        <param name="noise" value="$(arg noise)"/>
+        <param name="data_file" value="$(arg data_file)"/>
+        <param name="out_location" value="$(arg out_location)"/>
+        <!-- find out the robot description from urdf file -->
+        <param name="urdf_xml" command="$(find xacro)/xacro.py --inorder $(find baxter_description)/urdf/baxter.urdf.xacro" />
+    </node>
+</launch>

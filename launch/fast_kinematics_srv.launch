@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<launch>
+  <!--*** Baxter KDL Chain ***
+         * torso
+         * left_arm_mount
+         * left_upper_shoulder
+         * left_lower_shoulder
+         * left_upper_elbow
+         * left_lower_elbow
+         * left_upper_forearm
+         * left_lower_forearm
+         * left_wrist
+         * left_hand
+         * left_gripper_base
+         * left_gripper -->
+
+    <!-- start point in the kdl chain for the left arm -->
+    <arg name="left_chain_start" default="torso" />
+    <!-- start point in the kdl chain for the right arm -->
+    <arg name="right_chain_start" default="torso" />
+    <!-- end point in the kdl chain for the left arm -->
+    <arg name="left_chain_end" default="left_gripper" />
+    <!-- end point in the kdl chain for the right arm -->
+    <arg name="right_chain_end" default="right_gripper" />
+    <!-- runs for the full timeout (secs). used in inverse kinematics -->
+    <arg name="timeout" default="0.005" />
+    <!-- size of the queue used for publisher and subscriber -->
+    <arg name="queue_size" default="10" />
+    <!-- total number of joints in provided each kdl chain -->
+    <arg name="num_joints" default="7" />
+    <!-- starting postion of left joint in double array -->
+    <arg name="left_joint_offset" default="0" />
+    <!-- starting postion of right joint in double array -->
+    <arg name="right_joint_offset" default="7" />
+    
+     <env name="ROSCONSOLE_CONFIG_FILE" value="$(find learn_kinematics)/launch/learn_kinematics_rosconsole.config"/>
+    <!-- start the node and set stdout/stderr to screen -->
+    <node name="kinematics" pkg="learn_kinematics" type="fast_kinematics_srv" output="screen">
+        <param name="left_chain_start" value="$(arg left_chain_start)"/>
+        <param name="right_chain_start" value="$(arg right_chain_start)"/>
+        <param name="left_chain_end" value="$(arg left_chain_end)"/>
+        <param name="right_chain_end" value="$(arg right_chain_end)"/>
+        <param name="timeout" value="$(arg timeout)"/>
+        <param name="queue_size" value="$(arg queue_size)"/>
+        <param name="num_joints" value="$(arg num_joints)"/>
+        <param name="left_joint_offset" value="$(arg left_joint_offset)"/>
+        <param name="right_joint_offset" value="$(arg right_joint_offset)"/>
+        <!-- find out the robot description from urdf file -->
+        <param name="urdf_xml" command="$(find xacro)/xacro.py --inorder $(find baxter_description)/urdf/baxter.urdf.xacro" />
+    </node>
+</launch>

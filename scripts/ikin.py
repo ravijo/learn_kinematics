@@ -1,4 +1,10 @@
-#!/usr/bin/python
+#!/usr/bin/env python
+
+'''
+* ikin.py: Inverse kinematics calculation using baxter_pykdl
+* Author: Ravi Joshi
+* Date: 2016/06/09
+'''
 
 import rospy
 import numpy as np
@@ -37,11 +43,11 @@ def main():
     for i in index:
         joint_state = {'left_s0': eeData[i,1],
                        'left_s1': eeData[i,2],
-                       'left_w0': eeData[i,3],
-                       'left_w1': eeData[i,4],
-                       'left_w2': eeData[i,5],
-                       'left_e0': eeData[i,6],
-                       'left_e1': eeData[i,7]}
+                       'left_e0': eeData[i,3],
+                       'left_e1': eeData[i,4],
+                       'left_w0': eeData[i,5],
+                       'left_w1': eeData[i,6],
+                       'left_w2': eeData[i,7]}
         ee_Pose = kin.forward_position_kinematics(joint_state).tolist()
 
         pos = ee_Pose[:3]
@@ -49,30 +55,58 @@ def main():
         ikin_output = kin.inverse_kinematics(pos, rot)
         if ikin_output is not None:
             joint_state_ikin = ikin_output.tolist()
-        else:
-            print i
+
         #for plotting purpose only'
         plot_data_s0.append(joint_state_ikin[0])
         plot_data_s1.append(joint_state_ikin[1])
-        plot_data_w0.append(joint_state_ikin[2])
-        plot_data_w1.append(joint_state_ikin[3])
-        plot_data_w2.append(joint_state_ikin[4])
-        plot_data_e0.append(joint_state_ikin[5])
-        plot_data_e1.append(joint_state_ikin[6])
+        plot_data_e0.append(joint_state_ikin[2])
+        plot_data_e1.append(joint_state_ikin[3])
+        plot_data_w0.append(joint_state_ikin[4])
+        plot_data_w1.append(joint_state_ikin[5])
+        plot_data_w2.append(joint_state_ikin[6])
 
-    savefig( 1, index, plot_data_s0, 's0')
-    savefig( 2, index, plot_data_s1, 's1')
-    savefig( 3, index, plot_data_w0, 'w0')
-    savefig( 4, index, plot_data_w1, 'w1')
-    savefig( 5, index, plot_data_w2, 'w2')
-    savefig( 6, index, plot_data_e0, 'e0')
-    savefig( 7, index, plot_data_e1, 'e1')
+    savePlots(index, plot_data_s0, plot_data_s1, plot_data_e0, plot_data_e1, plot_data_w0, plot_data_w1, plot_data_w2)
 
-def savefig(num, index, data, filename):
-    plt.figure(num)
-    plt.plot(index,data)
-    plt.title(filename)
-    filename = '/home/tom/ros_ws/src/learn_kinematics/data/ikin results/' + filename + '.png'
+def savePlots(x, left_s0, left_s1, left_e0, left_e1, left_w0, left_w1, left_w2):
+    plt.figure(1, figsize=(30, 20))
+    plt.suptitle('Output of inverse kinematics using baxter_pykdl', fontsize=24)
+
+    plt.subplot(2, 4, 1)
+    plt.plot(x, left_s0)
+    plt.xlabel('time (1unit = 100ms)')
+    plt.ylabel('left_s0 (radian)')
+
+    plt.subplot(2, 4, 2)
+    plt.plot(x, left_s1)
+    plt.xlabel('time (1unit = 100ms)')
+    plt.ylabel('left_s1 (radian)')
+
+    plt.subplot(2, 4, 3)
+    plt.plot(x, left_e0)
+    plt.xlabel('time (1unit = 100ms)')
+    plt.ylabel('left_e0 (radian)')
+
+    plt.subplot(2, 4, 4)
+    plt.plot(x, left_e1)
+    plt.xlabel('time (1unit = 100ms)')
+    plt.ylabel('left_e1 (radian)')
+
+    plt.subplot(2, 4, 5)
+    plt.plot(x, left_w0)
+    plt.xlabel('time (1unit = 100ms)')
+    plt.ylabel('left_w0 (radian)')
+
+    plt.subplot(2, 4, 6)
+    plt.plot(x, left_w1)
+    plt.xlabel('time (1unit = 100ms)')
+    plt.ylabel('left_w1 (radian)')
+
+    plt.subplot(2, 4, 7)
+    plt.plot(x, left_w2)
+    plt.xlabel('time (1unit = 100ms)')
+    plt.ylabel('left_w2 (radian)')
+
+    filename = '/home/tom/ros_ws/src/learn_kinematics/data/ikin results/ikin_output.png'
     print 'saving ' + filename
     plt.savefig(filename)
 

@@ -1,0 +1,46 @@
+[baxter - http://localhost:11311] tom@tom-pc:~/ros_ws/src/learn_kinematics$ roslaunch learn_kinematics baxter_arm.launch 
+... logging to /home/tom/.ros/log/94d0ed86-1dbc-11e6-80e0-2c56dcd23e48/roslaunch-tom-pc-5403.log
+Checking log directory for disk usage. This may take awhile.
+Press Ctrl-C to interrupt
+Done checking log file disk usage. Usage is <1GB.
+
+started roslaunch server http://localhost:32909/
+
+SUMMARY
+========
+
+PARAMETERS
+ * /robot_description: <?xml version="1....
+ * /rosdistro: indigo
+ * /rosversion: 1.11.19
+ * /trac_ik_tests/chain_end: left_gripper
+ * /trac_ik_tests/chain_start: torso
+ * /trac_ik_tests/data_file: /home/tom/ros_ws/...
+ * /trac_ik_tests/timeout: 0.005
+ * /trac_ik_tests/urdf_param: /robot_description
+
+NODES
+  /
+    trac_ik_tests (learn_kinematics/ik_test)
+
+ROS_MASTER_URI=http://localhost:11311
+
+core service [/rosout] found
+process[trac_ik_tests-1]: started with pid [5424]
+[ INFO] [1463820402.270057821]: IK Using joint left_s0 -1.70168 1.70168
+[ INFO] [1463820402.270128717]: IK Using joint left_s1 -2.147 1.047
+[ INFO] [1463820402.270149801]: IK Using joint left_e0 -3.05418 3.05418
+[ INFO] [1463820402.270170842]: IK Using joint left_e1 -0.05 2.618
+[ INFO] [1463820402.270191884]: IK Using joint left_w0 -3.059 3.059
+[ INFO] [1463820402.270211838]: IK Using joint left_w1 -1.5708 2.094
+[ INFO] [1463820402.270233437]: IK Using joint left_w2 -3.059 3.059
+[ INFO] [1463820402.270584939]: Using 7 joints
+[ INFO] [1463820402.271063741]: *** Testing KDL with 1617 samples
+[ INFO] [1463820402.488138279, 155391.128000000]: 0% done
+[ INFO] [1463820403.593400844, 155392.220000000]: 0% done
+[ INFO] [1463820403.664809586, 155392.291000000]: KDL found 1409 solutions (87.1367%) with an average of 0.000817419 secs per sample
+[ INFO] [1463820403.664842280, 155392.291000000]: *** Testing TRAC-IK with 1617 samples
+[ INFO] [1463820403.665449842, 155392.292000000]: 0% done
+[ INFO] [1463820404.244482878, 155392.862000000]: TRAC-IK found 1617 solutions (100%) with an average of 0.000311129 secs per sample
+Killed
+
